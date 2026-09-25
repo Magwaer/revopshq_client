@@ -7,9 +7,11 @@ import { env } from "@/lib/env"
  * RevProjects client-portal API (`/api/client-portal/*` in the RevProjects backend).
  *
  * Authenticated with an `rppt_` portal token, created in RevProjects under Settings →
- * Client portal. The token scopes every call to one RevProjects workspace; RevProjects then
- * matches projects to this client by HubSpot company id, HubSpot contact id or email, and
- * returns only phases and tasks marked client-visible.
+ * Client portal. The token scopes every call to one RevProjects workspace. RevProjects looks
+ * up the user's HubSpot company id as a client (`Client.hubspotCompanyId`) and returns all of
+ * that client's projects (direct, through an engagement, or tagged with the company id),
+ * except drafts, cancelled and archived ones. Inside each project only client-visible phases
+ * and tasks are returned. A user without a HubSpot company sees no projects.
  */
 
 export type ProjectStatus = "ACTIVE" | "ON_HOLD" | "COMPLETED"

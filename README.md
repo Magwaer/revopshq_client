@@ -84,9 +84,14 @@ Visibility rules:
 ## RevProjects
 
 The portal calls `GET {REVPROJECTS_API_URL}/client-portal/projects` and `/projects/:id` with an
-`rppt_` portal token, passing the user's email, HubSpot contact id and company id. RevProjects
-matches projects by client HubSpot company id, project HubSpot company id, or contact email /
-HubSpot contact id, and returns only phases and tasks flagged client-visible.
+`rppt_` portal token, passing the user's HubSpot company id (stored at sign-in: the contact's
+primary company). RevProjects finds the client whose **HubSpot company id** matches and returns
+all of its projects — linked directly, through an engagement, or tagged with the same company
+id — except `DRAFT`, `CANCELLED` and `ARCHIVED` ones. Email and contact id are not used for
+matching. Inside a project, only phases and tasks flagged client-visible are returned.
+
+So for a client to see projects, set **HubSpot company ID** on the client in RevProjects to the
+company id in HubSpot. A user whose HubSpot contact has no company sees no projects.
 
 Create the token in RevProjects under **Settings → Client portal** (owner or admin), then set:
 
@@ -95,7 +100,8 @@ REVPROJECTS_API_URL=http://localhost:3010        # production: https://app.revpr
 REVPROJECTS_API_TOKEN=rppt_...
 ```
 
-A task only appears in the portal once it is marked client-visible in RevProjects.
+A project is listed as soon as it belongs to the client; its tasks appear once they are marked
+client-visible in RevProjects.
 
 ### Documents
 
