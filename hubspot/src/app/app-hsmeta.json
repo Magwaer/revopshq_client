@@ -1,0 +1,31 @@
+{
+  "uid": "revopshq_client_portal_app",
+  "type": "app",
+  "config": {
+    "name": "RevOps HQ Client Portal",
+    "description": "Server-side access for the RevOps HQ client portal: finds a signed-in client's contact by email and their company, reads the invoices and tickets associated with either, and opens new tickets associated with both.",
+    "distribution": "private",
+    "auth": {
+      "type": "static",
+      "requiredScopes": [
+        "crm.objects.contacts.read",
+        "crm.objects.companies.read",
+        "crm.objects.invoices.read",
+        "tickets"
+      ],
+      "optionalScopes": [],
+      "conditionallyRequiredScopes": []
+    },
+    "permittedUrls": {
+      "fetch": [],
+      "iframe": [],
+      "img": []
+    },
+    "support": {
+      "supportEmail": "contact@rohq.io",
+      "documentationUrl": "https://revopshq.com",
+      "supportUrl": "https://revopshq.com/contact",
+      "supportPhone": ""
+    }
+  }
+}
