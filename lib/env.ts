@@ -16,14 +16,8 @@ const schema = z.object({
   APP_URL: z.string().url().default("http://localhost:3001"),
   DATABASE_URL: z.string().min(1),
 
-  SMTP_HOST: z.string().default("localhost"),
-  SMTP_PORT: z.coerce.number().default(1026),
-  SMTP_SECURE: z
-    .string()
-    .optional()
-    .transform((value) => value === "true"),
-  SMTP_USER: z.string().optional(),
-  SMTP_PASSWORD: z.string().optional(),
+  SENDGRID_API_KEY: z.string().optional(),
+  // Must be a verified sender or on an authenticated domain in SendGrid.
   MAIL_FROM: z.string().default("RevOps HQ <portal@revopshq.com>"),
 
   HUBSPOT_ACCESS_TOKEN: z.string().optional(),

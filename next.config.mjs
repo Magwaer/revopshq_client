@@ -1,6 +1,6 @@
 /** @type {import('next').NextConfig} */
 const nextConfig = {
-  serverExternalPackages: ["pg", "nodemailer"],
+  serverExternalPackages: ["pg"],
   experimental: {
     // Document uploads go through a server action to RevProjects, which accepts up to
     // 25 MB. Both limits need headroom for the multipart envelope; the middleware one

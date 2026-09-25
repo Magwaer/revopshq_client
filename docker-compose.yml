@@ -18,13 +18,5 @@ services:
       timeout: 3s
       retries: 30
 
-  # Catches outgoing mail in development. Magic links land at http://localhost:8026.
-  mail:
-    image: axllent/mailpit:latest
-    restart: unless-stopped
-    ports:
-      - "1026:1025"
-      - "8026:8025"
-
 volumes:
   db-data:

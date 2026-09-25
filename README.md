@@ -19,12 +19,13 @@ tokens, and its own Postgres database.
 ```bash
 pnpm install
 cp .env.example .env     # fill in HubSpot and RevProjects values, see below
-pnpm db:up               # Postgres on :5433, Mailpit on :8026
+pnpm db:up               # Postgres on :5433
 pnpm db:migrate
 pnpm dev                 # http://localhost:3001
 ```
 
-Magic-link emails are caught by Mailpit: open http://localhost:8026 and click the link.
+Magic links are emailed through SendGrid. Without `SENDGRID_API_KEY`, development prints the
+link to the `pnpm dev` console instead (look for `[mail] SENDGRID_API_KEY not set`).
 
 Without `HUBSPOT_ACCESS_TOKEN`, development sign-in accepts any email and shows no HubSpot
 data. Production refuses to start a sign-in without it.
@@ -116,5 +117,7 @@ storage). The portal uses `GET /client-portal/documents`, `GET /client-portal/do
 ## Production notes
 
 - Set `APP_URL` to the public origin; it is used to build magic links.
-- Configure a real SMTP provider (`SMTP_*`, `MAIL_FROM`) — Mailpit is for development only.
+- Set `SENDGRID_API_KEY` (a restricted key with only the **Mail Send** permission) and a
+  `MAIL_FROM` on a domain authenticated in SendGrid (SPF/DKIM), or links land in spam. Click
+  and open tracking are disabled per message, so SendGrid never rewrites the sign-in link.
 - `DATABASE_URL` should point at a dedicated Postgres database; run `pnpm db:migrate` on deploy.
